@@ -46,6 +46,7 @@
 
   </head>
   <body>
+    {% section 'header' %}
     {{ content_for_layout }}
     <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
@@ -59,7 +60,6 @@
     <!-- joshua import style.scss -->
     {{ 'theme.js'  | asset_url  | script_tag }}
 
-    {% section 'header' %}
 
   </body>
 </html>
