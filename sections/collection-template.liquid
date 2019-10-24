@@ -23,7 +23,7 @@
                     <ul class="list-unstyled">
                       {% for childlink in link.links %}
                         <li>
-                          <a href="">{{childlink.title}}</a>
+                          <a href="{{childlink.url}}">{{childlink.title}}</a>
                         </li>
                       {% endfor %}
                     </ul>
@@ -32,9 +32,9 @@
               </div>
             {% else %}
               <div class="card">
-                <div class="card-header" id="headingOne">
+                <div class="card-header" id="heading-{{link.title}}">
                   <h5>
-                    <a aria-controls="collapseTwo" aria-expanded="true" class="collapsed" data-target="#collapseTwo" data-toggle="collapse" href="">
+                    <a class="no-icon" href="{{link.url}}">
                       {{link.title}}
                     </a>
                   </h5>
