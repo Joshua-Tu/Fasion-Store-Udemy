@@ -7,83 +7,41 @@
         </div>
 
         <div id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5>
-                <a aria-controls="collapseOne" aria-expanded="true" data-target="#collapseOne" data-toggle="collapse" href="">
-                  Shirts
-                </a>
-              </h5>
-            </div>
+          {% for link in linklists[section.settings.category].links %}
+            {% if link.links != blank %}
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5>
+                    <a class="{% if forloop.index != 1 %} collapsed {% endif %} " aria-controls="collapse-{{link.title}}" aria-expanded="true" data-target="#collapse-{{link.title}}" data-toggle="collapse" href="">
+                      {{link.title}}
+                    </a>
+                  </h5>
+                </div>
 
-            <div aria-labelledby="headingOne" class="collapse show" data-parent="#accordion" id="collapseOne">
-              <div class="card-body">
-                <ul class="list-unstyled">
-                  <li>
-                    <a href="">T-Shirts</a>
-                  </li>
-                  <li>
-                    <a href="">Polos</a>
-                  </li>
-                  <li>
-                    <a href="">Longsleeve</a>
-                  </li>
-                </ul>
+                <div aria-labelledby="headingOne" class="collapse {% if forloop.first %} show {% endif %}" data-parent="#accordion" id="collapse-{{link.title}}">
+                  <div class="card-body">
+                    <ul class="list-unstyled">
+                      {% for childlink in link.links %}
+                        <li>
+                          <a href="">{{childlink.title}}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5>
-                <a aria-controls="collapseTwo" aria-expanded="true" class="collapsed" data-target="#collapseTwo" data-toggle="collapse" href="">
-                  Jeans
-                </a>
-              </h5>
-            </div>
-
-            <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion" id="collapseTwo">
-              <div class="card-body">
-                <ul class="list-unstyled">
-                  <li>
-                    <a href="">Slim</a>
-                  </li>
-                  <li>
-                    <a href="">Boot</a>
-                  </li>
-                  <li>
-                    <a href="">Straight</a>
-                  </li>
-                </ul>
+            {% else %}
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5>
+                    <a aria-controls="collapseTwo" aria-expanded="true" class="collapsed" data-target="#collapseTwo" data-toggle="collapse" href="">
+                      {{link.title}}
+                    </a>
+                  </h5>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5>
-                <a aria-controls="collapseThree" aria-expanded="true" class="collapsed" data-target="#collapseThree" data-toggle="collapse" href="">
-                  Pants
-                </a>
-              </h5>
-            </div>
-
-            <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion" id="collapseThree">
-              <div class="card-body">
-                <ul class="list-unstyled">
-                  <li>
-                    <a href="">Dress</a>
-                  </li>
-                  <li>
-                    <a href="">Pleated</a>
-                  </li>
-                  <li>
-                    <a href="">Cargo</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
 
@@ -123,9 +81,21 @@
             </div>
           {% endfor %}
 
-
         </div>
       </div>
     </div>
   </div>
 </section>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "category",
+      "label": "Collection Dropdown"
+    }
+  ]
+}
+{% endschema %}
