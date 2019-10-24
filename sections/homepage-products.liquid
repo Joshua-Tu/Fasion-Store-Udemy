@@ -7,191 +7,69 @@
         </div>
       </div>
 
+      {% assign collection = collection[section.settings.collection] %}
       <div class="row">
-
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <span class="bage">Sale</span>
-              <img alt="product-img" class="img-responsive" src="images/product-1.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
+        {% for product in collection.products limit: section.settings.product_limit %}
+          <div class="col-md-4">
+            <div class="product-item">
+              <div class="product-thumb">
+                {% if product.compare_at_price and product.compare_at_price != product.price %}
+                  <span class="bage">Sale</span>
+                {% endif %}
+                <img alt="product-img" class="img-responsive" src="{{ product.featured_image.src | img_url: '1920x' }}">
+                <div class="preview-meta">
+                  <ul>
+                    <li>
+                      <a href="{{ product.url }}">
+                        <i class="fa fa-search"></i>
+                      </a>
+                    </li>
+                    <!-- <li><a href="#"><i class="fa fa-heart-o"></i></a></li> -->
+                    <li>
+                      <a href="">
+                        <i class="fa fa-shopping-cart"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="product-content">
+                <h4>
+                  <a href="product.url">{{ product.title }}</a>
+                </h4>
+                <p class="price">{{ product.price | money }}</p>
               </div>
             </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Reef Boardsport</a>
-              </h4>
-              <p class="price">$200</p>
-            </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <img alt="product-img" class="img-responsive" src="images/product-2.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Rainbow Shoes</a>
-              </h4>
-              <p class="price">$200</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <img alt="product-img" class="img-responsive" src="images/product-3.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Strayhorn SP</a>
-              </h4>
-              <p class="price">$230</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <img alt="product-img" class="img-responsive" src="images/product-4.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Bradley Mid</a>
-              </h4>
-              <p class="price">$200</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <img alt="product-img" class="img-responsive" src="images/product-5.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Rainbow Shoes</a>
-              </h4>
-              <p class="price">$200</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <img alt="product-img" class="img-responsive" src="images/product-6.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Rainbow Shoes</a>
-              </h4>
-              <p class="price">$200</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <span class="bage">Sale</span>
-              <img alt="product-img" class="img-responsive" src="images/product-7.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Rainbow Shoes</a>
-              </h4>
-              <p class="price">$200</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <img alt="product-img" class="img-responsive" src="images/product-8.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Rainbow Shoes</a>
-              </h4>
-              <p class="price">$200</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-item">
-            <div class="product-thumb">
-              <img alt="product-img" class="img-responsive" src="images/product-9.jpg">
-              <div class="preview-meta">
-                <ul>
-                  <li><a href="#"><i class="fa fa-search"></i></a></li>
-                  <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                  <li><a href=""><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="product-single.html">Rainbow Shoes</a>
-              </h4>
-              <p class="price">$200</p>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
 </section>
+
+{% schema %}
+{
+  "name": "Homepage Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Trending Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Product Limit",
+      "min": 3,
+      "max": 9,
+      "default": 6
+    }
+  ]
+}
+{% endschema %}
