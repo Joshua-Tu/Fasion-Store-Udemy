@@ -7,7 +7,7 @@
             <li class="breadcrumb-item">
               <a href="/">Home</a>
             </li>
-            <li class="breadcrumb-item active">{{product.title}}</li>
+            <li aria-current="page" class="breadcrumb-item active">{{product.title}}</li>
           </ol>
         </nav>
       </div>
@@ -17,8 +17,8 @@
       <div class="col-md-5">
         <div class="single-product-images">
           {% for image in product.images %}
-            <div data-thumb="{{image.src | img_url: '1920x'}} ">
-              <img class="img-fluid" src="{{image.src | img_url: '1920x'}}">
+            <div data-thumb="{{ image.src | img_url: '1920x' }}">
+              <img class="img-fluid" src="{{ image.src | img_url: '1920x' }}">
             </div>
           {% endfor %}
         </div>
@@ -27,42 +27,44 @@
       <div class="col-md-7">
         <div class="single-product-details">
           <h2>{{product.title}}</h2>
-          <p class="product-price">{{product.price | money}}</p>
+          <p class="product-price">{{product.price | money_with_currency}}</p>
 
           <p class="product-description">
             {{product.description}}
           </p>
+          <form action="/cart/add" method="POST">
 
-          <div class="product-category">
-            <span>Size:</span>
-            <select class="form-control">
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-              <option>XL</option>
-            </select>
-          </div>
-          <div class="product-category">
-            <span>Color:</span>
-            <select class="form-control">
-              <option>Red</option>
-              <option>Blue</option>
-              <option>Green</option>
-              <option>Orange</option>
-            </select>
-          </div>
-          <div class="product-quantity">
-            <span>Quantity:</span>
-            <input id="quantity" min="1" name="quantity" type="number" value="1"/>
-          </div>
-          <div class="product-category">
-            <span>Categories:</span>
-            <ul>
-              <li><a href="#">Products</a></li>
-              <li><a href="#">Soap</a></li>
-            </ul>
-          </div>
-          <a class="btn btn-main" href="cart.html">Add To Cart</a>
+            {% unless product.has_only_default_variant %}
+              {% for product_option in product.options_with_values %}
+                <div class="product-category">
+                  <span>{{product_option.name}}</span>
+                  <select class="form-control" data-index="option{{forloop.index}}">
+                    {% for value in product_option.values %}
+                      <option value="{{ value | escape }} {% if product_option.selected_value == value %} " selected" {% endif %} ">{{value}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            {% endunless %}
+
+            <div class="product-quantity">
+              <span>Quantity:</span>
+              <input id="quantity" min="1" name="quantity" type="number" value="1"/>
+            </div>
+            <div class="product-category">
+              <span>Categories:</span>
+              <ul>
+                {% for collection in product.collections %}
+                  <li>
+                    <a href="{{collection.url}}">{{collection.title}}</a>
+                  </li>
+                {% endfor %}
+
+              </ul>
+            </div>
+            <a class="btn btn-main" href="cart.html">Add To Cart</a>
+          </form>
+
         </div>
       </div>
     </div>
