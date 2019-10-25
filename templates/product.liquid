@@ -1,3 +1,12 @@
+{% assign short_description = product.description | split: "Product Description" | first %}
+{% assign product_description = product.description | split: "Product Description" | last | split: 'Specification' | first %}
+{% assign specification = product.description | split: "Specifications" | last %}
+
+<script type="text/javascript">
+  // Create a product variable of product object in json format, and allow javascript in theme.js to grab the data of the variant
+  window.product = {{ product | json }} || {};
+</script>
+
 <section class="single-product">
   <div class="container">
     <div class="row">
@@ -30,7 +39,7 @@
           <p class="product-price">{{product.price | money_with_currency}}</p>
 
           <p class="product-description">
-            {{product.description}}
+            {{short_description}}
           </p>
           <form action="/cart/add" method="POST">
 
@@ -62,7 +71,8 @@
 
               </ul>
             </div>
-            <a class="btn btn-main" href="cart.html">Add To Cart</a>
+            <input type="hidden" id="variant-id" name="id" value={{product.variants.first.id}}>
+            <input class="btn btn-main" type="submit" value="Add to Cart">
           </form>
 
         </div>
@@ -82,29 +92,10 @@
         <div class="tab-content" id="myTabContent">
           <div aria-labelledby="home-tab" class="tab-pane fade show active" id="home" role="tabpanel">
             <h4>Product Description</h4>
-            <p>{{product.description}}</p>
+            <p>{{product_description}}</p>
           </div>
           <div aria-labelledby="profile-tab" class="tab-pane fade" id="profile" role="tabpanel">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>Small</td>
-                  <td>15 inches</td>
-                </tr>
-                <tr>
-                  <td>Medium</td>
-                  <td>17 inches</td>
-                </tr>
-                <tr>
-                  <td>Large</td>
-                  <td>20 inches</td>
-                </tr>
-                <tr>
-                  <td>X Large</td>
-                  <td>25 inches</td>
-                </tr>
-              </tbody>
-            </table>
+            {{specification}}
           </div>
         </div>
       </div>
